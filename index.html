@@ -59,13 +59,14 @@ body{
     padding:18px;
     color:#6a3fa0;
     transform-origin:left;
+    transform:rotateY(180deg); /* مخفية */
     transition:transform 1s;
     font-size:14px;
     line-height:1.6;
     z-index:1;
 }
 
-/* LAST PAGE MEDIA */
+/* MEDIA */
 .page img{
     width:100%;
     border:1px solid #3b1c5a;
@@ -75,26 +76,6 @@ body{
 .page audio{
     width:100%;
     margin-top:10px;
-}
-
-/* FLIP */
-.flipped{
-    transform:rotateY(-180deg);
-}
-
-/* HEART EFFECT */
-.heart{
-    position:fixed;
-    font-size:20px;
-    color:black;
-    animation:fade 1.5s forwards;
-}
-
-@keyframes fade{
-    to{
-        opacity:0;
-        transform:translateY(-30px);
-    }
 }
 </style>
 </head>
@@ -107,11 +88,31 @@ body{
         this message<br>for you
     </div>
 
-    <div class="page">انا بحبك اوي يا لحن<br>وعايزة اعبرلك شوية عن حبي</div>
-    <div class="page">انت احسن حاجة دخلت حياتي بجد<br>انت متعرفش بحبك قد ايه</div>
-    <div class="page">ممتنة انك موجود ف حياتي<br>لان من ساعة ما دخلت حياتي</div>
-    <div class="page">مبقتش قادرة اعدي يوم منغير ما اكلمك<br>لانك الوحيد اللي بحسه فاهمني</div>
-    <div class="page">رغم اني كنت كارهة الارتباط اوي<br>بس ربنا عوضني بحد جميل زيك</div>
+    <div class="page">
+        انا بحبك اوي يا لحن<br>
+        وعايزة اعبرلك شوية عن حبي
+    </div>
+
+    <div class="page">
+        انت احسن حاجة دخلت حياتي بجد<br>
+        انت متعرفش بحبك قد ايه
+    </div>
+
+    <div class="page">
+        ممتنة انك موجود ف حياتي<br>
+        لان من ساعة ما دخلت حياتي
+    </div>
+
+    <div class="page">
+        مبقتش قادرة اعدي يوم منغير ما اكلمك<br>
+        لانك الوحيد اللي بحسه فاهمني
+    </div>
+
+    <div class="page">
+        رغم اني كنت كارهة الارتباط اوي<br>
+        بس ربنا عوضني بحد جميل زيك
+    </div>
+
     <div class="page">
         مستحملني ف كل حاجة حرفيًا<br>
         وعمرك ما اتغيرت معايا<br><br>
@@ -131,35 +132,19 @@ body{
 
 <script>
 const book = document.getElementById('book');
-const pages = [...document.querySelectorAll('.page')];
+const pages = document.querySelectorAll('.page');
 const cover = document.getElementById('cover');
-
-pages.forEach((page, i)=>{
-    page.style.zIndex = pages.length - i;
-});
 
 let current = -1;
 
 book.addEventListener('click', ()=>{
     if(current === -1){
-        cover.classList.add('flipped');
+        cover.style.transform = 'rotateY(-180deg)';
         current++;
-    }else if(current < pages.length){
-        pages[current].classList.add('flipped');
-        pages[current].style.zIndex = 0;
+    } else if(current < pages.length){
+        pages[current].style.transform = 'rotateY(0deg)';
+        pages[current].style.zIndex = 100 - current;
         current++;
-    }
-});
-
-document.addEventListener('click', e=>{
-    if(current >= pages.length){
-        const heart = document.createElement('div');
-        heart.className = 'heart';
-        heart.style.left = e.clientX + 'px';
-        heart.style.top = e.clientY + 'px';
-        heart.innerText = '🖤';
-        document.body.appendChild(heart);
-        setTimeout(()=>heart.remove(),1500);
     }
 });
 </script>
