@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>This message for you</title>
+
+<link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=Playfair+Display&display=swap" rel="stylesheet">
+
+<style>
+*{
+    box-sizing:border-box;
+    user-select:none;
+}
+
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:radial-gradient(circle, #2a1a10, #120a05);
+    overflow:hidden;
+    font-family:'Playfair Display', serif;
+}
+
+/* BOOK */
+.book{
+    width:300px;
+    height:420px;
+    perspective:2000px;
+}
+
+/* COVER */
+.cover{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:#000;
+    border:2px solid #3b1c5a;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:#4b1b7a;
+    font-family:'UnifrakturCook', cursive;
+    font-size:26px;
+    text-align:center;
+    transform-origin:left;
+    transition:transform 1s;
+    cursor:pointer;
+    z-index:10;
+}
+
+/* PAGES */
+.page{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:#0b0705;
+    border:1px solid #2a0f3f;
+    padding:18px;
+    color:#6a3fa0;
+    transform-origin:left;
+    transition:transform 1s;
+    font-size:14px;
+    line-height:1.6;
+}
+
+/* LAST PAGE MEDIA */
+.page img{
+    width:100%;
+    border:1px solid #3b1c5a;
+    margin-top:10px;
+}
+
+.page audio{
+    width:100%;
+    margin-top:10px;
+}
+
+/* FLIP */
+.flipped{
+    transform:rotateY(-180deg);
+}
+
+/* HEART EFFECT */
+.heart{
+    position:fixed;
+    font-size:20px;
+    color:black;
+    animation:fade 1.5s forwards;
+}
+
+@keyframes fade{
+    to{
+        opacity:0;
+        transform:translateY(-30px);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="book" id="book">
+
+    <div class="cover" id="cover">
+        this message<br>for you
+    </div>
+
+    <div class="page">
+        انا بحبك اوي يا لحن<br>
+        وعايزة اعبرلك شوية عن حبي
+    </div>
+
+    <div class="page">
+        انت احسن حاجة دخلت حياتي بجد<br>
+        انت متعرفش بحبك قد ايه
+    </div>
+
+    <div class="page">
+        ممتنة انك موجود ف حياتي<br>
+        لان من ساعة ما دخلت حياتي
+    </div>
+
+    <div class="page">
+        مبقتش قادرة اعدي يوم منغير ما اكلمك<br>
+        لانك الوحيد اللي بحسه فاهمني
+    </div>
+
+    <div class="page">
+        رغم اني كنت كارهة الارتباط اوي<br>
+        بس ربنا عوضني بحد جميل زيك
+    </div>
+
+    <div class="page">
+        مستحملني ف كل حاجة حرفيًا<br>
+        وعمرك ما اتغيرت معايا<br><br>
+        يارب نتجوز بجد<br>
+        عشان انا بحبك اوي
+    </div>
+
+    <div class="page">
+        <h3>Join me in death</h3>
+
+        <img src="image.jpg">
+
+        <audio controls>
+            <source src="song.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+</div>
+
+<script>
+const book = document.getElementById('book');
+const pages = document.querySelectorAll('.page');
+const cover = document.getElementById('cover');
+let current = -1;
+
+book.addEventListener('click', ()=>{
+    if(current === -1){
+        cover.classList.add('flipped');
+        current++;
+    }else if(current < pages.length){
+        pages[current].classList.add('flipped');
+        current++;
+    }
+});
+
+document.addEventListener('click', e=>{
+    if(current >= pages.length){
+        const heart = document.createElement('div');
+        heart.className = 'heart';
+        heart.style.left = e.clientX + 'px';
+        heart.style.top = e.clientY + 'px';
+        heart.innerText = '🖤';
+        document.body.appendChild(heart);
+        setTimeout(()=>heart.remove(),1500);
+    }
+});
+</script>
+
+</body>
+</html>
