@@ -28,13 +28,13 @@ body{
     width:300px;
     height:420px;
     perspective:2000px;
+    position:relative;
 }
 
 /* COVER */
 .cover{
     position:absolute;
-    width:100%;
-    height:100%;
+    inset:0;
     background:#000;
     border:2px solid #3b1c5a;
     display:flex;
@@ -47,14 +47,13 @@ body{
     transform-origin:left;
     transition:transform 1s;
     cursor:pointer;
-    z-index:10;
+    z-index:100;
 }
 
 /* PAGES */
 .page{
     position:absolute;
-    width:100%;
-    height:100%;
+    inset:0;
     background:#0b0705;
     border:1px solid #2a0f3f;
     padding:18px;
@@ -63,9 +62,10 @@ body{
     transition:transform 1s;
     font-size:14px;
     line-height:1.6;
+    z-index:1;
 }
 
-/* LAST PAGE */
+/* LAST PAGE MEDIA */
 .page img{
     width:100%;
     border:1px solid #3b1c5a;
@@ -107,31 +107,11 @@ body{
         this message<br>for you
     </div>
 
-    <div class="page">
-        انا بحبك اوي يا لحن<br>
-        وعايزة اعبرلك شوية عن حبي
-    </div>
-
-    <div class="page">
-        انت احسن حاجة دخلت حياتي بجد<br>
-        انت متعرفش بحبك قد ايه
-    </div>
-
-    <div class="page">
-        ممتنة انك موجود ف حياتي<br>
-        لان من ساعة ما دخلت حياتي
-    </div>
-
-    <div class="page">
-        مبقتش قادرة اعدي يوم منغير ما اكلمك<br>
-        لانك الوحيد اللي بحسه فاهمني
-    </div>
-
-    <div class="page">
-        رغم اني كنت كارهة الارتباط اوي<br>
-        بس ربنا عوضني بحد جميل زيك
-    </div>
-
+    <div class="page">انا بحبك اوي يا لحن<br>وعايزة اعبرلك شوية عن حبي</div>
+    <div class="page">انت احسن حاجة دخلت حياتي بجد<br>انت متعرفش بحبك قد ايه</div>
+    <div class="page">ممتنة انك موجود ف حياتي<br>لان من ساعة ما دخلت حياتي</div>
+    <div class="page">مبقتش قادرة اعدي يوم منغير ما اكلمك<br>لانك الوحيد اللي بحسه فاهمني</div>
+    <div class="page">رغم اني كنت كارهة الارتباط اوي<br>بس ربنا عوضني بحد جميل زيك</div>
     <div class="page">
         مستحملني ف كل حاجة حرفيًا<br>
         وعمرك ما اتغيرت معايا<br><br>
@@ -141,9 +121,7 @@ body{
 
     <div class="page">
         <h3>Join me in death</h3>
-
         <img src="IMG-20260214-WA0239.jpg">
-
         <audio controls>
             <source src="HIM-Join-Me-In-Death.mp3" type="audio/mpeg">
         </audio>
@@ -153,8 +131,13 @@ body{
 
 <script>
 const book = document.getElementById('book');
-const pages = document.querySelectorAll('.page');
+const pages = [...document.querySelectorAll('.page')];
 const cover = document.getElementById('cover');
+
+pages.forEach((page, i)=>{
+    page.style.zIndex = pages.length - i;
+});
+
 let current = -1;
 
 book.addEventListener('click', ()=>{
@@ -163,6 +146,7 @@ book.addEventListener('click', ()=>{
         current++;
     }else if(current < pages.length){
         pages[current].classList.add('flipped');
+        pages[current].style.zIndex = 0;
         current++;
     }
 });
